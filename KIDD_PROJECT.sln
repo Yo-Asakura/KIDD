@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36203.30 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KIDD_GAME_UNIT", "KIDD_GAME_UNIT\KIDD_GAME_UNIT.vcxproj", "{FEBED594-5112-41B2-BE51-ADB0FFDFC617}"
+	ProjectSection(ProjectDependencies) = postProject
+		{693562BC-A805-45A5-9914-5AAC6FE913DA} = {693562BC-A805-45A5-9914-5AAC6FE913DA}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KIDD_PHYSICS_UNIT", "KIDD_PHYSICS_UNIT\KIDD_PHYSICS_UNIT.vcxproj", "{59975206-31C7-4189-9ECC-DB7296B9424F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KIDD_RENDER_UNIT", "KIDD_RENDER_UNIT\KIDD_RENDER_UNIT.vcxproj", "{5C98E383-DB4B-4281-BE47-778FFB31DAE0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KIDD_ENGINE_UNIT", "KIDD_ENGINE_UNIT\KIDD_ENGINE_UNIT.vcxproj", "{693562BC-A805-45A5-9914-5AAC6FE913DA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{59975206-31C7-4189-9ECC-DB7296B9424F} = {59975206-31C7-4189-9ECC-DB7296B9424F}
+		{5C98E383-DB4B-4281-BE47-778FFB31DAE0} = {5C98E383-DB4B-4281-BE47-778FFB31DAE0}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FEBED594-5112-41B2-BE51-ADB0FFDFC617}.Debug|x64.ActiveCfg = Debug|x64
+		{FEBED594-5112-41B2-BE51-ADB0FFDFC617}.Debug|x64.Build.0 = Debug|x64
+		{FEBED594-5112-41B2-BE51-ADB0FFDFC617}.Release|x64.ActiveCfg = Release|x64
+		{FEBED594-5112-41B2-BE51-ADB0FFDFC617}.Release|x64.Build.0 = Release|x64
+		{59975206-31C7-4189-9ECC-DB7296B9424F}.Debug|x64.ActiveCfg = Debug|x64
+		{59975206-31C7-4189-9ECC-DB7296B9424F}.Debug|x64.Build.0 = Debug|x64
+		{59975206-31C7-4189-9ECC-DB7296B9424F}.Release|x64.ActiveCfg = Release|x64
+		{59975206-31C7-4189-9ECC-DB7296B9424F}.Release|x64.Build.0 = Release|x64
+		{5C98E383-DB4B-4281-BE47-778FFB31DAE0}.Debug|x64.ActiveCfg = Debug|x64
+		{5C98E383-DB4B-4281-BE47-778FFB31DAE0}.Debug|x64.Build.0 = Debug|x64
+		{5C98E383-DB4B-4281-BE47-778FFB31DAE0}.Release|x64.ActiveCfg = Release|x64
+		{5C98E383-DB4B-4281-BE47-778FFB31DAE0}.Release|x64.Build.0 = Release|x64
+		{693562BC-A805-45A5-9914-5AAC6FE913DA}.Debug|x64.ActiveCfg = Debug|x64
+		{693562BC-A805-45A5-9914-5AAC6FE913DA}.Debug|x64.Build.0 = Debug|x64
+		{693562BC-A805-45A5-9914-5AAC6FE913DA}.Release|x64.ActiveCfg = Release|x64
+		{693562BC-A805-45A5-9914-5AAC6FE913DA}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0383FD51-77A7-436C-8370-D5D80D6B9CB3}
+	EndGlobalSection
+EndGlobal
