@@ -1,6 +1,7 @@
 #pragma once
-#include <Windows.h>
 #include "../KIDD_PCH/KIDD_ENGINE_MIN.h"
+#include <Windows.h>
+
 
 namespace KIDD_WINDOW
 {

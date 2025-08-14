@@ -43,11 +43,19 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)intermediate\$(Configuration)\KIDD_ENGINE_UNIT\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)intermediate\$(Configuration)\KIDD_ENGINE_UNIT\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;KIDDENGINEUNIT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>KIDD_ENGINE_UNIT_EXPORTS;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -60,6 +68,8 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>KIDD_RENDER_UNIT.lib;KIDD_PHYSICS_UNIT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -68,7 +78,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;KIDDENGINEUNIT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>KIDD_ENGINE_UNIT_EXPORTS;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -81,20 +91,32 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>KIDD_RENDER_UNIT.lib;KIDD_PHYSICS_UNIT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="KIDD_INPUT\KIDD_KEYBOARD.h" />
+    <ClInclude Include="KIDD_INPUT\KIDD_MOUSE.h" />
+    <ClInclude Include="KIDD_WIN\KIDD_OUTPUT_WIN.h" />
     <ClInclude Include="KIDD_PCH\KIDD_ENGINE_MIN.h" />
     <ClInclude Include="KIDD_PCH\pch.h" />
+    <ClInclude Include="KIDD_WIN\KIDD_RENDER_WIN.h" />
     <ClInclude Include="KIDD_RESOURCES\resource.h" />
+    <ClInclude Include="KIDD_WIN\KIDD_WINDOW_CONTROLS.h" />
     <ClInclude Include="KIDD_WIN\KIDD_ABSTRACT_WIN.h" />
     <ClInclude Include="KIDD_WIN\KIDD_MAIN_WIN.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="KIDD_INPUT\KIDD_KEYBOARD.cpp" />
+    <ClCompile Include="KIDD_INPUT\KIDD_MOUSE.cpp" />
+    <ClCompile Include="KIDD_WIN\KIDD_OUTPUT_WIN.cpp" />
     <ClCompile Include="KIDD_PCH\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="KIDD_WIN\KIDD_RENDER_WIN.cpp" />
+    <ClCompile Include="KIDD_WIN\KIDD_WINDOW_CONTROLS.cpp" />
     <ClCompile Include="KIDD_WIN\KIDD_ABSTRACT_WIN.cpp" />
     <ClCompile Include="KIDD_WIN\KIDD_MAIN_WIN.cpp" />
   </ItemGroup>
@@ -103,6 +125,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="KIDD_RESOURCES\KIDD_JROGER.ico" />
+    <Image Include="KIDD_RESOURCES\KIDD_JROGER16X16.ico" />
+    <Image Include="KIDD_RESOURCES\KIDD_JROGER32X32.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
