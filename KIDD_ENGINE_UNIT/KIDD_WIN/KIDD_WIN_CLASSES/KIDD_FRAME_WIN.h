@@ -1,22 +1,20 @@
 #pragma once
-#include "../KIDD_PCH/KIDD_ENGINE_MIN.h"
+#include "../../KIDD_PCH//KIDD_ENGINE_MIN.h"
 #include "KIDD_ABSTRACT_WIN.h"
-#include "KIDD_WINDOW_CONTROLS.h"
-#include "KIDD_RENDER_WIN.h"
 #include <optional>
 #include <memory>
 
 namespace KIDD_WINDOW
 {
-	class ENGINE_UNIT_API KIDD_MAIN_WIN : public KIDD_ABSTRACT_WIN
+	class ENGINE_UNIT_API KIDD_FRAME_WIN : public KIDD_ABSTRACT_WIN
 	{
 	public:
-		KIDD_MAIN_WIN();
-		~KIDD_MAIN_WIN() = default;
+		KIDD_FRAME_WIN(LONG x, LONG y, LONG width, LONG height, const wchar_t* name);
+		~KIDD_FRAME_WIN() = default;
 
 	public:
 		int Run();// FOR NOW
-		void Init();
+		void Init(COLORREF titleBarColor);
 		inline bool IsInitialized()const noexcept { return init; };
 
 	// GETTERS
@@ -28,19 +26,14 @@ namespace KIDD_WINDOW
 		std::optional<int> WinLoop();
 
 	private:
+		inline COLORREF GetTitleBarColor(HWND hWnd)const noexcept { return (COLORREF)GetWindowLongPtrW(hWnd, GWLP_USERDATA); };
 		LRESULT CALLBACK KIDD_WINDOW_PROC(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)override;
 	
 	private:
-		std::unique_ptr<KIDD_RENDER_WIN> kRenderWin;
-		std::unique_ptr<KIDD_WINDOW_CONTROLS> kControls;
-		RECT recti{};
 		static constexpr const wchar_t* name = L"KIDD_JOLLY_WINDOW";
-		HINSTANCE hInstance;
-		HWND hWnd;
-		COLORREF titleBarColor = RGB(20, 20, 25);
-		LONG width;
-		LONG height;
-		LONG tbYEnd{ 30 };
+		RECT recti{ 0 };
+		HINSTANCE hInstance{ nullptr };
+		HWND hWnd{ nullptr };
 		bool init{ false };
 	};
 }

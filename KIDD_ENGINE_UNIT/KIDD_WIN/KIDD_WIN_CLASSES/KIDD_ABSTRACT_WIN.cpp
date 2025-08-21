@@ -3,6 +3,41 @@
 
 namespace KIDD_WINDOW
 {
+	KIDD_ABSTRACT_WIN::KIDD_ABSTRACT_WIN(LONG x, LONG y, LONG width, LONG height, const wchar_t* name)
+		:
+		xPos(x),
+		yPos(y),
+		kWidth(width),
+		kHeight(height),
+		kName(name)
+	{
+	}
+
+	inline void KIDD_ABSTRACT_WIN::SetWindName(const wchar_t* name) noexcept
+	{
+		this->kName = name;
+	}
+
+	inline void KIDD_ABSTRACT_WIN::SetWinWidth(const LONG width) noexcept
+	{
+		this->kWidth = width;
+	}
+
+	inline void KIDD_ABSTRACT_WIN::SetWinHeight(const LONG height) noexcept
+	{
+		this->kHeight = height;
+	}
+
+	inline void KIDD_ABSTRACT_WIN::SetWinXStartPos(const LONG xpos) noexcept
+	{
+		this->xPos = xpos;
+	}
+
+	inline void KIDD_ABSTRACT_WIN::SetWinYStartPos(const LONG ypos) noexcept
+	{
+		this->yPos = ypos;
+	}
+
 	LRESULT KIDD_ABSTRACT_WIN::MessageHandler(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		if (uMsg == WM_NCCREATE) // Message WM_NCCREATE is sent before a window is actually created

@@ -1,5 +1,5 @@
 ﻿#include "pch.h"
-#include "KIDD_MAIN_WIN.h"
+#include "KIDD_FRAME_WIN.h"
 #include "../KIDD_RESOURCES/resource.h"
 
 #define IDC_CLOSEBTN    1001
@@ -8,10 +8,16 @@
 
 namespace KIDD_WINDOW
 {
-	KIDD_MAIN_WIN::KIDD_MAIN_WIN()
+	KIDD_FRAME_WIN::KIDD_FRAME_WIN(LONG x, LONG y, LONG width, LONG height, const wchar_t* name)
 		:
+		KIDD_ABSTRACT_WIN(x, y, width, height, name),
 		hInstance(GetModuleHandleW(TEXT(L"KIDD_ENGINE_UNIT.dll")))
 	{
+		recti.left = x;
+		recti.top = y;
+		recti.right = x + width;
+		recti.bottom = y + height;
+
 		WNDCLASSEXW wc = {};
 		wc.cbSize = sizeof(wc);
 		wc.style = CS_HREDRAW | CS_VREDRAW;
@@ -30,7 +36,7 @@ namespace KIDD_WINDOW
 			std::wcout << L"FRAME WINDOW REGISTRATION : SUCCESS\n";
 	}
 
-	int KIDD_MAIN_WIN::Run()
+	int KIDD_FRAME_WIN::Run()
 	{
 		while (IsInitialized())
 		{
@@ -41,17 +47,13 @@ namespace KIDD_WINDOW
 		}return 0;
 	}
 
-	void KIDD_MAIN_WIN::Init()
+	void KIDD_FRAME_WIN::Init(COLORREF titleBarColor)
 	{
-		SystemParametersInfo(SPI_GETWORKAREA, 0, &recti, 0);
-		width = recti.right - recti.left;
-		height = recti.bottom - recti.top;
-		
 		hWnd = CreateWindowExW(
 			WS_EX_APPWINDOW,
 			GetName(), L"KIDD_ENGINE_UNIT",
 			WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX,
-			recti.left, recti.top, width, height,
+			recti.left, recti.top, recti.right - recti.left, recti.bottom - recti.top,
 			nullptr, nullptr, GetInstance(), this);
         if (!hWnd)
             std::wcout << L"FRAME WINDOW CREATION : FAILED\n";
@@ -65,7 +67,7 @@ namespace KIDD_WINDOW
 		init = true;
 	}
 
-	std::optional<int> KIDD_MAIN_WIN::WinLoop()
+	std::optional<int> KIDD_FRAME_WIN::WinLoop()
 	{
 		MSG msg = { 0 };
 		while (PeekMessageW(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -80,28 +82,14 @@ namespace KIDD_WINDOW
 		return {};
 	}
 
-    LRESULT KIDD_MAIN_WIN::KIDD_WINDOW_PROC(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+    LRESULT KIDD_FRAME_WIN::KIDD_WINDOW_PROC(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
         switch (uMsg)
         {
 			case WM_CLOSE:
 			{
-				kControls.release();
-				kRenderWin.release();
 				PostQuitMessage(0);
 				return 0;
-			}
-			case WM_CREATE:
-			{
-				kControls = std::make_unique<KIDD_WINDOW_CONTROLS>(hWnd, ((LPCREATESTRUCTW)lParam)->hInstance);
-
-				kControls->InitCloseButton(IDC_CLOSEBTN);
-				kControls->InitMaxButton(IDC_MAXBTN);
-				kControls->InitMinButton(IDC_MINBTN);
-
-				kRenderWin = std::make_unique<KIDD_RENDER_WIN>(hWnd, hInstance);
-				kRenderWin.get()->InitRenderWindow(recti.left, recti.top + tbYEnd);
-				break;
 			}
 			case WM_DRAWITEM:
 			{
@@ -109,7 +97,7 @@ namespace KIDD_WINDOW
 				HDC hdc = pDraw->hDC;
 				RECT rc = pDraw->rcItem;
 
-				HBRUSH bgBrush = CreateSolidBrush(titleBarColor); 
+				HBRUSH bgBrush = CreateSolidBrush(GetTitleBarColor(hWnd));
 				FillRect(hdc, &rc, bgBrush);
 				DeleteObject(bgBrush);
 
@@ -168,8 +156,8 @@ namespace KIDD_WINDOW
 				HDC hdc = BeginPaint(hWnd, &ps);
 
 				// DRAW TITLE BAR
-				RECT titleBar = { 0, 0, width, tbYEnd };
-				FillRect(hdc, &titleBar, CreateSolidBrush(titleBarColor));
+				RECT titleBar = { recti.left, recti.top, recti.right - recti.left, recti.bottom - recti.top };
+				FillRect(hdc, &titleBar, CreateSolidBrush(GetTitleBarColor(hWnd)));
 
 				// DRAW TITLE
 				SetBkMode(hdc, TRANSPARENT);

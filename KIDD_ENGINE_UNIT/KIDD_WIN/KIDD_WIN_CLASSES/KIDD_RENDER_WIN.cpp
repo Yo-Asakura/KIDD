@@ -47,7 +47,7 @@ namespace KIDD_WINDOW
 		
 	}
 
-	LRESULT KIDD_RENDER_WIN::RenderProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	LRESULT KIDD_RENDER_WIN::KIDD_WINDOW_PROC(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		switch (uMsg)
 		{

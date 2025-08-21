@@ -1,9 +1,10 @@
 #pragma once
-#include "../KIDD_PCH/KIDD_ENGINE_MIN.h"
+#include "../../KIDD_PCH//KIDD_ENGINE_MIN.h"
+#include "KIDD_ABSTRACT_WIN.h"
 
 namespace KIDD_WINDOW
 {
-	class ENGINE_UNIT_API KIDD_RENDER_WIN
+	class ENGINE_UNIT_API KIDD_RENDER_WIN : public KIDD_ABSTRACT_WIN
 	{
 	public:
 		KIDD_RENDER_WIN(HWND parentHwnd, HINSTANCE hInstance);
@@ -13,8 +14,9 @@ namespace KIDD_WINDOW
 		void InitRenderWindow(UINT startX, UINT startY);
 		inline static const wchar_t* GetName()noexcept { return name; }
 
-	public:
-		LRESULT RenderProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	private:
+		LRESULT CALLBACK KIDD_WINDOW_PROC(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)override;
+
 	private:
 		static constexpr const wchar_t* name = L"KIDD_RENDER_WINDOW";
 		HWND hRWnd;

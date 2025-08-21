@@ -98,27 +98,29 @@
   <ItemGroup>
     <ClInclude Include="KIDD_INPUT\KIDD_KEYBOARD.h" />
     <ClInclude Include="KIDD_INPUT\KIDD_MOUSE.h" />
-    <ClInclude Include="KIDD_WIN\KIDD_OUTPUT_WIN.h" />
+    <ClInclude Include="KIDD_WIN\KIDD_WINDOW_MANAGER.h" />
+    <ClInclude Include="KIDD_WIN\KIDD_WIN_CLASSES\KIDD_OUTPUT_WIN.h" />
     <ClInclude Include="KIDD_PCH\KIDD_ENGINE_MIN.h" />
     <ClInclude Include="KIDD_PCH\pch.h" />
-    <ClInclude Include="KIDD_WIN\KIDD_RENDER_WIN.h" />
+    <ClInclude Include="KIDD_WIN\KIDD_WIN_CLASSES\KIDD_RENDER_WIN.h" />
     <ClInclude Include="KIDD_RESOURCES\resource.h" />
-    <ClInclude Include="KIDD_WIN\KIDD_WINDOW_CONTROLS.h" />
-    <ClInclude Include="KIDD_WIN\KIDD_ABSTRACT_WIN.h" />
-    <ClInclude Include="KIDD_WIN\KIDD_MAIN_WIN.h" />
+    <ClInclude Include="KIDD_WIN\KIDD_WIN_CLASSES\KIDD_WINDOW_CONTROLS.h" />
+    <ClInclude Include="KIDD_WIN\KIDD_WIN_CLASSES\KIDD_ABSTRACT_WIN.h" />
+    <ClInclude Include="KIDD_WIN\KIDD_WIN_CLASSES\KIDD_FRAME_WIN.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KIDD_INPUT\KIDD_KEYBOARD.cpp" />
     <ClCompile Include="KIDD_INPUT\KIDD_MOUSE.cpp" />
-    <ClCompile Include="KIDD_WIN\KIDD_OUTPUT_WIN.cpp" />
+    <ClCompile Include="KIDD_WIN\KIDD_WINDOW_MANAGER.cpp" />
+    <ClCompile Include="KIDD_WIN\KIDD_WIN_CLASSES\KIDD_OUTPUT_WIN.cpp" />
     <ClCompile Include="KIDD_PCH\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="KIDD_WIN\KIDD_RENDER_WIN.cpp" />
-    <ClCompile Include="KIDD_WIN\KIDD_WINDOW_CONTROLS.cpp" />
-    <ClCompile Include="KIDD_WIN\KIDD_ABSTRACT_WIN.cpp" />
-    <ClCompile Include="KIDD_WIN\KIDD_MAIN_WIN.cpp" />
+    <ClCompile Include="KIDD_WIN\KIDD_WIN_CLASSES\KIDD_RENDER_WIN.cpp" />
+    <ClCompile Include="KIDD_WIN\KIDD_WIN_CLASSES\KIDD_WINDOW_CONTROLS.cpp" />
+    <ClCompile Include="KIDD_WIN\KIDD_WIN_CLASSES\KIDD_ABSTRACT_WIN.cpp" />
+    <ClCompile Include="KIDD_WIN\KIDD_WIN_CLASSES\KIDD_FRAME_WIN.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="KIDD_RESOURCES\KIDD_ENGINE_UNIT.rc" />
