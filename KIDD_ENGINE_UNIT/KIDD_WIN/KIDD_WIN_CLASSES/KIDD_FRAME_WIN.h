@@ -9,7 +9,7 @@ namespace KIDD_WINDOW
 	class ENGINE_UNIT_API KIDD_FRAME_WIN : public KIDD_ABSTRACT_WIN
 	{
 	public:
-		KIDD_FRAME_WIN(LONG x, LONG y, LONG width, LONG height, const wchar_t* name);
+		KIDD_FRAME_WIN(HWND hWnd, HINSTANCE hInstance, LONG x, LONG y, LONG width, LONG height, const wchar_t* name);
 		~KIDD_FRAME_WIN() = default;
 
 	public:
@@ -20,7 +20,6 @@ namespace KIDD_WINDOW
 	// GETTERS
 	public:
 		inline HINSTANCE GetInstance()const noexcept { return hInstance; }
-		inline static const wchar_t* GetName()noexcept { return name; }
 		inline HWND GetHWND()const noexcept { return hWnd; }
 	protected:
 		std::optional<int> WinLoop();
@@ -30,8 +29,6 @@ namespace KIDD_WINDOW
 		LRESULT CALLBACK KIDD_WINDOW_PROC(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)override;
 	
 	private:
-		static constexpr const wchar_t* name = L"KIDD_JOLLY_WINDOW";
-		RECT recti{ 0 };
 		HINSTANCE hInstance{ nullptr };
 		HWND hWnd{ nullptr };
 		bool init{ false };

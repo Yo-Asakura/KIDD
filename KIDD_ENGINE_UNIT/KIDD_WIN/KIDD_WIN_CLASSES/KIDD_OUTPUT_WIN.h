@@ -10,17 +10,13 @@ namespace KIDD_WINDOW
 	class ENGINE_UNIT_API KIDD_OUTPUT_WIN : public KIDD_ABSTRACT_WIN
 	{
 	public:
-		KIDD_OUTPUT_WIN(HWND parentHwnd, HINSTANCE hInstance);
+		KIDD_OUTPUT_WIN(HWND hWnd, HINSTANCE hInstance, LONG x, LONG y, LONG width, LONG height, const wchar_t* name);
 		~KIDD_OUTPUT_WIN() = default;
 	public:
-		void IbitConsole(UINT startX, UINT startY);
-		inline static const wchar_t* GetName()noexcept { return name; }
-
+		void InitConsole();
 	private:
 		LRESULT CALLBACK KIDD_WINDOW_PROC(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)override;
 	private:
-
-		static constexpr const wchar_t* name = L"KIDD_DEBUG_WINDOW";
 		HWND chWnd;
 		HINSTANCE chInstance;
 		char* ioStream;

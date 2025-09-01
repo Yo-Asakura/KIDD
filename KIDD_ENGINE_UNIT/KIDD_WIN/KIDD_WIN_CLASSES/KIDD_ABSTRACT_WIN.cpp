@@ -3,14 +3,23 @@
 
 namespace KIDD_WINDOW
 {
-	KIDD_ABSTRACT_WIN::KIDD_ABSTRACT_WIN(LONG x, LONG y, LONG width, LONG height, const wchar_t* name)
+	KIDD_ABSTRACT_WIN::KIDD_ABSTRACT_WIN(HWND hWnd, HINSTANCE hInstance, LONG x, LONG y, LONG width, LONG height, const wchar_t* name)
 		:
+		khWnd(hWnd),
+		khInstance(hInstance),
 		xPos(x),
 		yPos(y),
 		kWidth(width),
 		kHeight(height),
-		kName(name)
+		kName(name),
+		kRect(x, y, x + width, y + height)
 	{
+	}
+
+	inline void KIDD_ABSTRACT_WIN::SetRect(LONG x, LONG y, LONG width, LONG height)
+	{
+		RECT* r = new RECT(x, y, x + width, y + height);
+		this->kRect = *r;
 	}
 
 	inline void KIDD_ABSTRACT_WIN::SetWindName(const wchar_t* name) noexcept

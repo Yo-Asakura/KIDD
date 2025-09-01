@@ -1,16 +1,15 @@
 #pragma once
-#include "../KIDD_ENGINE_UNIT/KIDD_WIN/KIDD_WIN_CLASSES/KIDD_FRAME_WIN.h"
+#include "../KIDD_ENGINE_UNIT/KIDD_WIN/KIDD_WINDOW_MANAGER.h"
+
+HWND hWnd;
+HINSTANCE hInstance;
+
 
 int main()
 {
 	using namespace KIDD_WINDOW;
 	
-	KIDD_FRAME_WIN KIDDO;
-	KIDDO.Init();
-	if (KIDDO.IsInitialized())
-	{
-		KIDDO.Run();
-	}
-
+	KIDD_WINDOW_MANAGER KIDDO(hWnd, hInstance);
+	
 	return 0;
 }

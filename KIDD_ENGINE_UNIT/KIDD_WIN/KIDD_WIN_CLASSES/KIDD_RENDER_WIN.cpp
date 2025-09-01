@@ -4,10 +4,9 @@
 
 namespace KIDD_WINDOW
 {
-	KIDD_RENDER_WIN::KIDD_RENDER_WIN(HWND parentHwnd, HINSTANCE hInstance)
+	KIDD_RENDER_WIN::KIDD_RENDER_WIN(HWND hWnd, HINSTANCE hInstance, LONG x, LONG y, LONG width, LONG height, const wchar_t* name)
 		:
-		hRWnd(parentHwnd),
-		hRInstance(hInstance)
+		KIDD_ABSTRACT_WIN(hWnd, hInstance, x, y, width, height, name)
 	{
 		WNDCLASSEXW wc = {};
 		wc.cbSize = sizeof(wc);
@@ -17,7 +16,7 @@ namespace KIDD_WINDOW
 		wc.cbWndExtra = 0;
 		wc.hInstance = hRInstance;
 		wc.lpszMenuName = NULL;
-		wc.lpszClassName = GetName();
+		wc.lpszClassName = KIDD_ABSTRACT_WIN::GetName();
 		wc.hbrBackground = (HBRUSH)(CreateSolidBrush(RGB(128, 128, 128)));
 
 		if (RegisterClassExW(&wc))
@@ -26,16 +25,15 @@ namespace KIDD_WINDOW
 			std::wcout << L"RENDER WINDOW REGISTRATION : FAILED\n";
 	}
 
-	void KIDD_RENDER_WIN::InitRenderWindow(UINT startX, UINT startY)
+	void KIDD_RENDER_WIN::InitRenderWindow()
 	{
-		xStart = startX;
-		yStart = startY;
-
 		hRWnd = CreateWindowExW(
 			0,
-			GetName(), L"KIDDO",
+			KIDD_ABSTRACT_WIN::GetName(), L"KIDDO",
 			WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
-			xStart, yStart, width, height,
+			KIDD_ABSTRACT_WIN::GetRectXPos(), KIDD_ABSTRACT_WIN::GetRectYPos(),
+			KIDD_ABSTRACT_WIN::GetRectWidth() - KIDD_ABSTRACT_WIN::GetRectXPos(),
+			KIDD_ABSTRACT_WIN::GetRectHeight() - KIDD_ABSTRACT_WIN::GetRectYPos(),
 			hRWnd, nullptr, hRInstance, this);
 		if (!hRWnd)
 			std::wcout << L"KIDD RENDER WINDOW CREATION: FAILED\n";

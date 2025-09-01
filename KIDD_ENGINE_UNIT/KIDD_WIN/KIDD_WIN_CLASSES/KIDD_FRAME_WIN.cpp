@@ -8,16 +8,10 @@
 
 namespace KIDD_WINDOW
 {
-	KIDD_FRAME_WIN::KIDD_FRAME_WIN(LONG x, LONG y, LONG width, LONG height, const wchar_t* name)
+	KIDD_FRAME_WIN::KIDD_FRAME_WIN(HWND hWnd, HINSTANCE hInstance, LONG x, LONG y, LONG width, LONG height, const wchar_t* name)
 		:
-		KIDD_ABSTRACT_WIN(x, y, width, height, name),
-		hInstance(GetModuleHandleW(TEXT(L"KIDD_ENGINE_UNIT.dll")))
+		KIDD_ABSTRACT_WIN(hWnd, hInstance, x, y, width, height, name)
 	{
-		recti.left = x;
-		recti.top = y;
-		recti.right = x + width;
-		recti.bottom = y + height;
-
 		WNDCLASSEXW wc = {};
 		wc.cbSize = sizeof(wc);
 		wc.style = CS_HREDRAW | CS_VREDRAW;
@@ -29,7 +23,7 @@ namespace KIDD_WINDOW
 		wc.hCursor = (HCURSOR)LoadCursor(NULL, IDC_CROSS);
 		wc.hbrBackground = (HBRUSH)(CreateSolidBrush(RGB(0, 0, 0)));
 		wc.lpszMenuName = NULL;
-		wc.lpszClassName = GetName();
+		wc.lpszClassName = KIDD_ABSTRACT_WIN::GetName();
 		wc.hIconSm = (HICON)LoadImageW(GetInstance(), MAKEINTRESOURCEW(IDI_ICON2), IMAGE_ICON, 32, 32, 0);
 	
 		if (RegisterClassExW(&wc))
@@ -51,9 +45,11 @@ namespace KIDD_WINDOW
 	{
 		hWnd = CreateWindowExW(
 			WS_EX_APPWINDOW,
-			GetName(), L"KIDD_ENGINE_UNIT",
+			KIDD_ABSTRACT_WIN::GetName(), L"KIDD_ENGINE_UNIT",
 			WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX,
-			recti.left, recti.top, recti.right - recti.left, recti.bottom - recti.top,
+			KIDD_ABSTRACT_WIN::GetRectXPos(), KIDD_ABSTRACT_WIN::GetRectYPos(),
+			KIDD_ABSTRACT_WIN::GetRectWidth() - KIDD_ABSTRACT_WIN::GetRectXPos(),
+			KIDD_ABSTRACT_WIN::GetRectHeight() - KIDD_ABSTRACT_WIN::GetRectYPos(),
 			nullptr, nullptr, GetInstance(), this);
         if (!hWnd)
             std::wcout << L"FRAME WINDOW CREATION : FAILED\n";
@@ -156,7 +152,9 @@ namespace KIDD_WINDOW
 				HDC hdc = BeginPaint(hWnd, &ps);
 
 				// DRAW TITLE BAR
-				RECT titleBar = { recti.left, recti.top, recti.right - recti.left, recti.bottom - recti.top };
+				RECT titleBar = { KIDD_ABSTRACT_WIN::GetRectXPos(), KIDD_ABSTRACT_WIN::GetRectYPos(),
+								  KIDD_ABSTRACT_WIN::GetRectWidth() - KIDD_ABSTRACT_WIN::GetRectXPos(),
+								  KIDD_ABSTRACT_WIN::GetRectHeight() - KIDD_ABSTRACT_WIN::GetRectYPos() };
 				FillRect(hdc, &titleBar, CreateSolidBrush(GetTitleBarColor(hWnd)));
 
 				// DRAW TITLE
